@@ -1,0 +1,21 @@
+<h2>New book</h2>
+<!-- form_for部分 -->
+<%= form_for(bookn) do |f| %>
+<% if bookn.errors.any? %> 
+    <h2><%= bookn.errors.count %>件のエラーが発生しました。</h2>
+    <ul>
+    	<% bookn.errors.full_messages.each do |message| %>
+    	<li><%= message %></li>
+	<% end %>
+</ul>
+<% end %>
+ 
+    <p>Title</p>
+    <%= f.text_field :title %>
+ 
+    <p>Opinion</p>
+    <%= f.text_area :body %><br>
+ 
+    <%= f.submit 'Create Book',class: "btn btn-default" %>
+ 
+ <% end %>
