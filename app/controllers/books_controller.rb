@@ -11,6 +11,9 @@ class BooksController < ApplicationController
     @bookn =Book.new
     @book = Book.find_by(id: params[:id])
     @user = User.find_by(id: @book.user_id)
+    @book_comment = BookComment.new
+    @book_comments = BookComment.all
+
    
   end
 
