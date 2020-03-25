@@ -1,66 +1,55 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!
-  before_action :correct_user, only: [:edit, :update]
+  before_action :authenticate_user!,only: [:create,:edit,:update,:destroy,:index]
+
   def index
     @books = Book.all
-    @bookn = Book.new
-    @user = current_user
+    @book = Book.new
   end
 
   def show
-    @bookn =Book.new
-    @book = Book.find_by(id: params[:id])
-    @user = User.find_by(id: @book.user_id)
-    @book_comment = BookComment.new
-    @book_comments = BookComment.all
-
-   
+    @book = Book.find(params[:id])
   end
 
-  def new
-    @bookn = Book.new
-  end
-  def create
-      @user = current_user
-      @bookn = Book.new(book_params)
-      @bookn.user = current_user
-      if @bookn.save
-        flash[:hote] = "Book was successfully created"
-        redirect_to book_path(@bookn)
-        else
-          flash[:hoti] = "error Book was not created"
-          redirect_to books_path
-      
-        end
-   end
   def edit
     @book = Book.find(params[:id])
+    screen_user(@book)
   end
-    def update
+
+  def create
+    @book = Book.new(book_params)
+    @book.user_id = current_user.id
+    if @book.save
+      redirect_to @book
+    else
+      @books = Book.all
+      render 'index'
+    end
+  end
+
+  def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
-      flash[:hoge] = "Book was successfully updated"
-    redirect_to book_path(@book)
+      redirect_to @book
     else
       render 'edit'
     end
   end
-      def delete
+
+  def destroy
     @book = Book.find(params[:id])
     @book.destroy
-    redirect_to books_path
-end
-private 
-def book_params
-    params.require(:book).permit(:title,:body,:user_id)
-end
-  def correct_user
-    book =  Book.find(params[:id])
-    user = book.user_id
-    if current_user.id != user
-      redirect_to books_path
-    end
+    redirect_to books_url
   end
 
+  private
+    def book_params
+      params.require(:book).permit(:title, :body)
+    end
+
+    def screen_user(book)
+      if book.user.id != current_user.id
+        redirect_to books_path
+      end
+    end
 
 end

@@ -2,8 +2,8 @@
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
  *
  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
@@ -13,22 +13,20 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap-sprockets";  /*ここを追加*/
-@import "bootstrap";            /*ここを追加*/
-@import "font-awesome";
-header {
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+header{
 	color:white;
+	.navbar-left{
+		span{
+			font-size:20px;
+			padding-top:10px;
+		}
+	}	
 }
 
-header .navbar-left span {
-	font-size: 20px;
-	padding-top: 10px;
-}
-
-body {
-	margin-top: 40px;
-}
-
-.actions {
-	margin-top:10px;
+.body{
+	margin-top:51px;
 }

@@ -6,13 +6,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get index" do
-    get users_index_url
+  test "should get edit" do
+    get users_edit_url
     assert_response :success
   end
 
   test "should get edit" do
     get users_edit_url
+    assert_response :success
+  end
+
+  test "should get index" do
+    get users_index_url
     assert_response :success
   end
 

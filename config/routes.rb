@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  root 'users#top'
-  devise_for :users
-  resources :users
-  resources :books do
-  	resource :book_comments, only: [:create,:destroy]
-  	resource :favorites, only: [:create, :destroy]
+	devise_for :users
+  resources :users,only: [:show,:edit,:update,:index] do
+    resource :relationships, only: [:create, :destroy]
+    get 'follows' => 'relationships#follower', as: 'follows'
+    get 'followers' => 'relationships#followed', as: 'followers'
   end
-  resource :favorites, only: [:create, :destroy]
-  get 'home/about' => 'users#about', as:'about'
+  resources :books
+  root 'home#top'
+  get 'home/about'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
